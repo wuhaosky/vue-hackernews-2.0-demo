@@ -1,0 +1,8 @@
+{
+  "presets": [
+    ["env", { "modules": false }]
+  ],
+  "plugins": [
+    "syntax-dynamic-import"   // 参考文档：https://doc.webpack-china.org/guides/code-splitting-async/#-babel-
+  ]
+}
