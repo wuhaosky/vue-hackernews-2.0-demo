@@ -33,7 +33,7 @@ export default {
     type: String
   },
 
-  data () {
+  data() {
     return {
       transition: 'slide-right',
       displayedPage: Number(this.$store.state.route.params.page) || 1,
@@ -42,19 +42,19 @@ export default {
   },
 
   computed: {
-    page () {
+    page() {
       return Number(this.$store.state.route.params.page) || 1
     },
-    maxPage () {
+    maxPage() {
       const { itemsPerPage, lists } = this.$store.state
       return Math.ceil(lists[this.type].length / itemsPerPage)
     },
-    hasMore () {
+    hasMore() {
       return this.page < this.maxPage
     }
   },
 
-  beforeMount () {
+  beforeMount() {
     if (this.$root._isMounted) {
       this.loadItems(this.page)
     }
@@ -67,18 +67,18 @@ export default {
     })
   },
 
-  beforeDestroy () {
+  beforeDestroy() {
     this.unwatchList()
   },
 
   watch: {
-    page (to, from) {
+    page(to, from) {
       this.loadItems(to, from)
     }
   },
 
   methods: {
-    loadItems (to = this.page, from = -1) {
+    loadItems(to = this.page, from = -1) {
       this.$bar.start()
       this.$store.dispatch('FETCH_LIST_DATA', {
         type: this.type

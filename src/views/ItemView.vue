@@ -9,8 +9,8 @@
           ({{ item.url | host }})
         </span>
         <p class="meta">
-          {{ item.score }} points
-          | by <router-link :to="'/user/' + item.by">{{ item.by }}</router-link>
+          {{ item.score }} points | by
+          <router-link :to="'/user/' + item.by">{{ item.by }}</router-link>
           {{ item.time | timeAgo }} ago
         </p>
       </div>
@@ -40,7 +40,7 @@ export default {
   }),
 
   computed: {
-    item () {
+    item() {
       return this.$store.state.items[this.$route.params.id]
     }
   },
@@ -48,16 +48,16 @@ export default {
   // We only fetch the item itself before entering the view, because
   // it might take a long time to load threads with hundreds of comments
   // due to how the HN Firebase API works.
-  asyncData ({ store, route: { params: { id }}}) {
+  asyncData({ store, route: { params: { id } } }) {
     return store.dispatch('FETCH_ITEMS', { ids: [id] })
   },
 
-  title () {
+  title() {
     return this.item.title
   },
 
   // Fetch comments when mounted on the client
-  beforeMount () {
+  beforeMount() {
     this.fetchComments()
   },
 
@@ -67,7 +67,7 @@ export default {
   },
 
   methods: {
-    fetchComments () {
+    fetchComments() {
       this.loading = true
       fetchComments(this.$store, this.item).then(() => {
         this.loading = false
@@ -77,7 +77,7 @@ export default {
 }
 
 // recursively fetch all descendent comments
-function fetchComments (store, item) {
+function fetchComments(store, item) {
   if (item && item.kids) {
     return store.dispatch('FETCH_ITEMS', {
       ids: item.kids
